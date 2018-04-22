@@ -123,5 +123,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Configure LINE Bot SDK
+LINE_CHANNEL_ACCESS_TOKEN = env('LINE_CHANNEL_ACCESS_TOKEN')
+LINE_CHANNEL_SECRET = env('LINE_CHANNEL_SECRET')
+
 # Configure Heroku app.
 django_heroku.settings(locals())
