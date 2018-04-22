@@ -22,7 +22,8 @@ class Image(models.Model):
     image = models.URLField()
 
     def get_line_bot_object(self):
-        return ImageSendMessage(original_content_url=self.image)
+        return ImageSendMessage(
+            original_content_url=self.image, preview_image_url=self.image)
 
 
 class Group(models.Model):
