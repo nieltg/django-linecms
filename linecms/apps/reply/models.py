@@ -25,7 +25,7 @@ class AbstractAction(models.Model):
     REPLY_CHOICES = ((REPLY_TEXT, _("Text")), )
 
     reply = models.IntegerField(choices=REPLY_CHOICES)
-    reply_text = models.ForeignKey(Text, on_delete=models.PROTECT)
+    reply_text = models.ForeignKey(Text, on_delete=models.PROTECT, null=True, blank=True)
 
     def handle_event(self, event, line_bot_api):
         providers = {
