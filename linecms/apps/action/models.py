@@ -10,6 +10,9 @@ class ReplyAction(AbstractAction):
         bot_obj = self.get_line_bot_object()
         line_bot_api.reply_message(event.reply_token, bot_obj)
 
+    class Meta:
+        abstract = True
+
 
 class Postback(ReplyAction):
     """Postback message."""
