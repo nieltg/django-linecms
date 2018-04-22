@@ -35,6 +35,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'linecms.apps.reply',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
