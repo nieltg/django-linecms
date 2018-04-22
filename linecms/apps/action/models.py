@@ -42,3 +42,7 @@ class Message(AbstractAction):
 
     def __str__(self):
         return self.text
+
+
+class InvalidMessage(AbstractAction):
+    """Invalid message."""

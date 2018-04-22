@@ -6,7 +6,7 @@ from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import MessageEvent, PostbackEvent, TextMessage
 
-from .models import Message, Postback
+from .models import Message, Postback, InvalidMessage
 
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 parser = WebhookParser(settings.LINE_CHANNEL_SECRET)
@@ -28,24 +28,18 @@ def callback(request):
         for event in events:
             action = None
 
-            print("GET EVENT")
-
             if isinstance(event, MessageEvent):
-                print("MESSAGE EVENT")
                 if isinstance(event.message, TextMessage):
-                    print("TEXT MESSAGE")
                     action = Message.objects.filter(
-                        text=event.message.text).first()
+                        text__iexact=event.message.text).first()
+                    if action is None:
+                        action = InvalidMessage.objects.order_by('?').first()
             elif isinstance(event, PostbackEvent):
-                print("POSTBACK EVENT")
                 action = Postback.objects.filter(
                     data=event.postback.data).first()
 
             if action is not None:
-                print("ACTION")
                 action.handle_event(event, line_bot_api)
-
-            print("DONE EVENT")
 
         return HttpResponse()
     else:
