@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext as _
-from linebot.models import TextSendMessage
+from linebot.models import ImageSendMessage, TextSendMessage
 
 
 class Text(models.Model):
@@ -14,6 +14,15 @@ class Text(models.Model):
 
     def __str__(self):
         return self.text[:100]
+
+
+class Image(models.Model):
+    """LINE image message model."""
+
+    image = models.URLField()
+
+    def get_line_bot_object(self):
+        return ImageSendMessage(original_content_url=self.image)
 
 
 class Group(models.Model):
@@ -34,9 +43,11 @@ class AbstractAction(models.Model):
 
     REPLY_TEXT = 1
     REPLY_GROUP = 2
+    REPLY_IMAGE = 3
     REPLY_CHOICES = (
         (REPLY_TEXT, _("Text")),
         (REPLY_GROUP, _("Group")),
+        (REPLY_IMAGE, _("Image")),
     )
 
     reply = models.IntegerField(choices=REPLY_CHOICES)
@@ -44,11 +55,14 @@ class AbstractAction(models.Model):
         Text, on_delete=models.PROTECT, null=True, blank=True)
     reply_group = models.ForeignKey(
         Group, on_delete=models.PROTECT, null=True, blank=True)
+    reply_image = models.ForeignKey(
+        Image, on_delete=models.PROTECT, null=True, blank=True)
 
     def get_line_bot_object(self):
         providers = {
             self.REPLY_TEXT: self.reply_text,
             self.REPLY_GROUP: self.reply_group,
+            self.REPLY_IMAGE: self.reply_image,
         }
 
         provider = providers[self.reply]
