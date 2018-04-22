@@ -29,10 +29,16 @@ class AbstractAction(models.Model):
 class Postback(AbstractAction):
     """Postback message."""
 
-    data = models.TextField(max_length=300)
+    data = models.TextField(_("Postback data"), max_length=300)
+
+    def __str__(self):
+        return self.data
 
 
 class Message(AbstractAction):
     """Reply message."""
 
-    text = models.CharField(max_length=255)
+    text = models.CharField(_("Keyword text"), max_length=255)
+
+    def __str__(self):
+        return self.text

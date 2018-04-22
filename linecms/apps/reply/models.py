@@ -10,3 +10,6 @@ class Text(models.Model):
 
     def get_line_bot_object(self):
         return TextSendMessage(text=self.text)
+
+    def __str__(self):
+        return self.text
