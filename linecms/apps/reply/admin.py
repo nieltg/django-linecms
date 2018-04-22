@@ -18,3 +18,4 @@ class GroupAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Text, TextAdmin)
+admin.site.register(Group, GroupAdmin)
