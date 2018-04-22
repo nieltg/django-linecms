@@ -12,4 +12,4 @@ class Text(models.Model):
         return TextSendMessage(text=self.text)
 
     def __str__(self):
-        return self.text
+        return self.text[:100]
