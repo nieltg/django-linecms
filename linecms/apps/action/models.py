@@ -21,7 +21,7 @@ class AbstractAction(models.Model):
             self.REPLY_TEXT: self.reply_text,
         }
 
-        provider = providers[self.reply_text]
+        provider = providers[self.reply]
         line_bot_api.reply_message(event.reply_token,
                                    provider.get_line_bot_object())
 
