@@ -18,10 +18,10 @@ class AbstractAction(models.Model):
 
     def handle_event(self, event, line_bot_api):
         providers = {
-            self.REPLY_TEXT: self.text,
+            self.REPLY_TEXT: self.reply_text,
         }
 
-        provider = providers[self.reply]
+        provider = providers[self.reply_text]
         line_bot_api.reply_message(event.reply_token,
                                    provider.get_line_bot_object())
 
