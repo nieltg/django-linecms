@@ -61,6 +61,7 @@ class GroupItem(AbstractAction):
 
     parent = models.ForeignKey(
         Group, on_delete=models.CASCADE, related_name='group_item_set')
+    reply_group = None
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude)
