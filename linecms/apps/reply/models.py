@@ -22,7 +22,7 @@ class Group(models.Model):
     def get_line_bot_object(self):
         bot_obj = []
         for item in self.group_item_set.all():
-            bot_obj.append(item)
+            bot_obj.append(item.get_line_bot_object())
         return bot_obj
 
 
