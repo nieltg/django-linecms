@@ -45,15 +45,14 @@ class AbstractAction(models.Model):
     reply_group = models.ForeignKey(
         Group, on_delete=models.PROTECT, null=True, blank=True)
 
-    def handle_event(self, event, line_bot_api):
+    def get_line_bot_object(self):
         providers = {
             self.REPLY_TEXT: self.reply_text,
             self.REPLY_GROUP: self.reply_group,
         }
 
         provider = providers[self.reply]
-        line_bot_api.reply_message(event.reply_token,
-                                   provider.get_line_bot_object())
+        return provider.get_line_bot_object()
 
 
 class GroupItem(AbstractAction):
