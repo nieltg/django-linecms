@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+import django_heroku
 import environ
 
 # Initialize Django environ
@@ -117,3 +118,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Configure Heroku app.
+django_heroku.settings(locals())
