@@ -16,10 +16,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Message',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
                 ('reply', models.IntegerField(choices=[(1, 'Text')])),
                 ('text', models.CharField(max_length=255)),
-                ('reply_text', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='reply.Text')),
+                ('reply_text',
+                 models.ForeignKey(
+                     on_delete=django.db.models.deletion.PROTECT,
+                     to='reply.Text')),
             ],
             options={
                 'abstract': False,
@@ -28,10 +36,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Postback',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(
+                     auto_created=True,
+                     primary_key=True,
+                     serialize=False,
+                     verbose_name='ID')),
                 ('reply', models.IntegerField(choices=[(1, 'Text')])),
                 ('data', models.TextField(max_length=300)),
-                ('reply_text', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='reply.Text')),
+                ('reply_text',
+                 models.ForeignKey(
+                     on_delete=django.db.models.deletion.PROTECT,
+                     to='reply.Text')),
             ],
             options={
                 'abstract': False,
