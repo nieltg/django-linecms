@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Text, Group, GroupItem
+from .models import Text, Group, GroupItem, Image
 
 
 class TextAdmin(admin.ModelAdmin):
@@ -16,6 +16,10 @@ class GroupAdmin(admin.ModelAdmin):
         GroupItemInline,
     ]
 
+class ImageAdmin(admin.ModelAdmin):
+    fields = ['image']
+
 
 admin.site.register(Text, TextAdmin)
 admin.site.register(Group, GroupAdmin)
+admin.site.register(Image, ImageAdmin)

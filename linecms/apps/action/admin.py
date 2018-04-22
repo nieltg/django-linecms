@@ -4,15 +4,15 @@ from .models import Message, InvalidMessage, Postback
 
 
 class MessageAdmin(admin.ModelAdmin):
-    fields = ['text', 'reply', 'reply_text', 'reply_group']
+    fields = ['text', 'reply', 'reply_text', 'reply_group', 'reply_image']
 
 
 class InvalidMessageAdmin(admin.ModelAdmin):
-    fields = ['reply', 'reply_text', 'reply_group']
+    fields = ['reply', 'reply_text', 'reply_group', 'reply_image']
 
 
 class PostbackAdmin(admin.ModelAdmin):
-    fields = ['data', 'reply', 'reply_text', 'reply_group']
+    fields = ['data', 'reply', 'reply_text', 'reply_group', 'reply_image']
 
 
 admin.site.register(Message, MessageAdmin)
