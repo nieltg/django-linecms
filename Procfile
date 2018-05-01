@@ -1,2 +1,2 @@
 release: python manage.py migrate --no-input
-web: gunicorn linecms.wsgi
+web: gunicorn linecms_web.wsgi
