@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'linecms_web.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db(default='sqlite://db.sqlite3'),
+    'default': env.db(default='sqlite:///db.sqlite3'),
 }
 
 # Password validation
