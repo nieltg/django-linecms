@@ -69,7 +69,14 @@ class GroupMessageHandler(AbstractHandler):
         queryset = model.items.all()
         if queryset.count() > 5:
             raise ValueError("Group items can't be more than 5")
-        return [item.build_linebot_message() for item in queryset]
+
+        items = []
+        for item in queryset:
+            if item.message_type == Message.MESSAGE_TYPE_GROUP:
+                raise ValueError("Group can't be nested")
+            items.append(item)
+
+        return items
 
     @staticmethod
     def to_str(model):
