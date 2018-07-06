@@ -74,7 +74,7 @@ class GroupMessageHandler(AbstractHandler):
         for item in queryset:
             if item.message_type == Message.MESSAGE_TYPE_GROUP:
                 raise ValueError("Group can't be nested")
-            items.append(item)
+            items.append(item.build_linebot_message())
 
         return items
 
