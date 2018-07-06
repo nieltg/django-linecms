@@ -1,0 +1,19 @@
+language: python
+
+python:
+- "3.4"
+- "3.6"
+- "pypy3.5"
+
+env:
+- DJANGO=2.0
+
+install:
+- pip install -r requirements.txt
+- pip install coverage coveralls ${DJANGO:+Django==$DJANGO}
+
+script:
+- coverage run --source=. manage.py test
+
+after_script:
+- coveralls
