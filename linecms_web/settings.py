@@ -12,10 +12,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
-import django_heroku
 import environ
 
 # Initialize Django environ
+# WORKAROUND: djongo uses AUTH_SOURCE config. outside OPTIONS
+environ.Env._DB_BASE_OPTIONS += ['AUTH_SOURCE']
 env = environ.Env()
 env.read_env('.env')
 
@@ -26,12 +27,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+# TODO: Remove default= after zeit/now-cli#1446 has been acted upon
+SECRET_KEY = env('SECRET_KEY', default='secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env('ALLOWED_HOSTS', default=[])
 
 # Application definition
 
@@ -122,6 +124,24 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Configure Heroku app.
+STATIC_ROOT = env('STATIC_ROOT', default=None)
+
+# Configuration patches
+
+# Whitenoise
+if env('USE_WHITENOISE', default=False):
+    insert_id = 0
+    for i, middleware in enumerate(MIDDLEWARE):
+        if 'SecurityMiddleware' in middleware:
+            insert_id = i + 1
+            break
+
+    MIDDLEWARE.insert(insert_id, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Heroku
 if env('DYNO', default=None) is not None:
+    import django_heroku
+
     django_heroku.settings(locals())
