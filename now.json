@@ -1,0 +1,12 @@
+{
+  "name": "django-linecms-demo",
+  "alias": "django-linecms-demo.now.sh",
+
+  "public": true,
+
+  "env": {
+    "SECRET_KEY": "@linecms-demo-secret-key",
+    "DATABASE_URL": "@linecms-demo-db-url",
+    "ALLOWED_HOSTS": "django-linecms-demo.now.sh"
+  }
+}

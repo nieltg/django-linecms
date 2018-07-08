@@ -5,12 +5,32 @@ python:
 - "3.6"
 - "pypy3.5"
 
+stages:
+- test
+- name: deploy
+  if: branch == master
+jobs:
+  include:
+  - stage: deploy
+    python: "3.6"
+
+    install: skip
+    script: skip
+    after_script: skip
+
+    before_deploy: npm install now --no-save
+    deploy:
+      provider: script
+      script: npx now -t "$NOW_TOKEN" && npx now alias -t "$NOW_TOKEN"
+      skip_cleanup: true
+    # deployment name is also specified in now.json
+    after_deploy: npx now rm -t "$NOW_TOKEN" -y -s django-linecms || true
+
 install:
 - pip install -r requirements.txt
 - pip install coverage coveralls
 
 script:
 - coverage run --source=. manage.py test
-
 after_script:
 - coveralls
