@@ -126,6 +126,12 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = env('STATIC_ROOT', default=None)
 
+# LINE bot SDK
+# https://github.com/line/line-bot-sdk-python
+
+LINE_CHANNEL_ACCESS_TOKEN = env('LINE_CHANNEL_ACCESS_TOKEN', default=None)
+LINE_CHANNEL_SECRET = env('LINE_CHANNEL_SECRET', default=None)
+
 # Configuration patches
 
 # Whitenoise
