@@ -29,7 +29,7 @@ class TextMessageHook(Task):
 
         queryset = cls.objects.filter(
             Q(keyword=keyword)
-            | Q(keyword__iexact=keyword)).order_by('-case_sensitive').first()
+            | Q(keyword__iexact=keyword)).order_by('-case_sensitive')[:1]
 
         try:
             task = queryset.get()
