@@ -5,9 +5,9 @@ class Router:
         self.routes.append(handler)
         return handler
 
-    def handle_event(self, event):
+    def handle_event(self, event, linebot_api):
         for route in self.routes:
-            agent = route.handle_event(event)
+            agent = route.handle_event(event, linebot_api)
 
             if agent is not None:
                 return agent
