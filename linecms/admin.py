@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Message
+
+
+class MessageAdmin(admin.ModelAdmin):
+    fields = ['message_type', 'items', 'text']
+
+
+admin.site.register(Message, MessageAdmin)
