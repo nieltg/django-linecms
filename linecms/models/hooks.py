@@ -37,3 +37,6 @@ class TextMessageHook(Task):
             return None
 
         return task.do_handle_event(event, linebot_api)
+
+    def __str__(self):
+        return self.keyword
