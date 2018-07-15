@@ -5,10 +5,11 @@ from linecms.models import Message
 
 
 class TextMessageTestCase(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         message = Message.objects.create(
             message_type=Message.MESSAGE_TYPE_TEXT, text="Text")
-        self.pk = message.pk
+        cls.pk = message.pk
 
     def test_message_type(self):
         message = Message.objects.get(pk=self.pk)
@@ -23,7 +24,8 @@ class TextMessageTestCase(TestCase):
 
 
 class GroupMessageTestCase(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         message = Message.objects.create(
             message_type=Message.MESSAGE_TYPE_GROUP)
         message.items.add(
@@ -31,7 +33,7 @@ class GroupMessageTestCase(TestCase):
                 message_type=Message.MESSAGE_TYPE_TEXT, text="1"),
             Message.objects.create(
                 message_type=Message.MESSAGE_TYPE_TEXT, text="2"))
-        self.pk = message.pk
+        cls.pk = message.pk
 
     def test_message_type(self):
         message = Message.objects.get(pk=self.pk)
@@ -48,11 +50,12 @@ class GroupMessageTestCase(TestCase):
 
 
 class CircularGroupMessageTestCase(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         message = Message.objects.create(
             message_type=Message.MESSAGE_TYPE_GROUP)
         message.items.add(message)
-        self.pk = message.pk
+        cls.pk = message.pk
 
     def test_build_linebot_message(self):
         message = Message.objects.get(pk=self.pk)
@@ -61,14 +64,15 @@ class CircularGroupMessageTestCase(TestCase):
 
 
 class GroupInGroupMessageTestCase(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         message = Message.objects.create(
             message_type=Message.MESSAGE_TYPE_GROUP)
         message.items.add(
             Message.objects.create(
                 message_type=Message.MESSAGE_TYPE_TEXT, text="1"),
             Message.objects.create(message_type=Message.MESSAGE_TYPE_GROUP))
-        self.pk = message.pk
+        cls.pk = message.pk
 
     def test_build_linebot_message(self):
         message = Message.objects.get(pk=self.pk)
@@ -77,13 +81,14 @@ class GroupInGroupMessageTestCase(TestCase):
 
 
 class TooManyChildGroupMessageTestCase(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         message = Message.objects.create(
             message_type=Message.MESSAGE_TYPE_GROUP)
         message.items.add(*(Message.objects.create(
             message_type=Message.MESSAGE_TYPE_TEXT, text=str(i))
                             for i in range(6)))
-        self.pk = message.pk
+        cls.pk = message.pk
 
     def test_build_linebot_message(self):
         message = Message.objects.get(pk=self.pk)
