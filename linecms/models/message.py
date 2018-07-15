@@ -16,9 +16,10 @@ class Message(models.Model):
         _("Message type"), choices=MESSAGE_TYPE_CHOICES)
 
     # group
-    items = models.ManyToManyField('self', verbose_name=_("Group Items"))
+    items = models.ManyToManyField(
+        'self', verbose_name=_("Group Items"), blank=True)
     # text
-    text = models.TextField(_("Text"), max_length=2000)
+    text = models.TextField(_("Text"), max_length=2000, null=True, blank=True)
 
     # Handlers
 
@@ -38,8 +39,8 @@ class Message(models.Model):
         try:
             return self._handlers[self.message_type]
         except KeyError as e:
-            raise ValueError(
-                "Invalid message type: " + self.message_type) from e
+            raise ValueError("Invalid message type: " +
+                             self.message_type) from e
 
     # Operations
 
