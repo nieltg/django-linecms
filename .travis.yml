@@ -24,7 +24,7 @@ jobs:
       script: npx now -t "$NOW_TOKEN" && npx now alias -t "$NOW_TOKEN"
       skip_cleanup: true
     # deployment name is also specified in now.json
-    after_deploy: npx now rm -t "$NOW_TOKEN" -y -s django-linecms || true
+    after_deploy: npx now rm -t "$NOW_TOKEN" -y -s django-linecms-demo || true
 
 install:
 - pip install -r requirements.txt
