@@ -9,8 +9,11 @@ from linebot.exceptions import InvalidSignatureError, LineBotApiError
 
 from .models.hooks import router
 
-linebot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
-parser = WebhookParser(settings.LINE_CHANNEL_SECRET)
+if settings.LINE_CHANNEL_ACCESS_TOKEN is not None:
+    linebot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
+
+if settings.LINE_CHANNEL_SECRET is not None:
+    parser = WebhookParser(settings.LINE_CHANNEL_SECRET)
 
 
 @method_decorator(csrf_exempt, name='dispatch')

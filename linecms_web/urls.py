@@ -19,5 +19,6 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # Webhook handler URL
     path('linebot/', include('linecms.urls')),
 ]
