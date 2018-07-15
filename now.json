@@ -6,7 +6,11 @@
 
   "env": {
     "SECRET_KEY": "@linecms-demo-secret-key",
+    "ALLOWED_HOSTS": "django-linecms-demo.now.sh",
+
     "DATABASE_URL": "@linecms-demo-db-url",
-    "ALLOWED_HOSTS": "django-linecms-demo.now.sh"
+
+    "LINE_CHANNEL_ACCESS_TOKEN": "@linecms-demo-channel-access-token",
+    "LINE_CHANNEL_SECRET": "@linecms-demo-channel-secret"
   }
 }
