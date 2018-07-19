@@ -28,8 +28,9 @@ class TextMessageHook(Task):
         keyword = event.message.text.strip()
 
         queryset = cls.objects.filter(
-            Q(keyword=keyword)
-            | Q(keyword__iexact=keyword)).order_by('-case_sensitive')[:1]
+            Q(keyword=keyword, case_sensitive=True)
+            | Q(keyword__iexact=keyword, case_sensitive=False)).order_by(
+                '-case_sensitive')[:1]
 
         try:
             task = queryset.get()
